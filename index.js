@@ -15,7 +15,7 @@ client.on('qr', qr => {
 });
 
 client.on('ready', async () => {
-    console.log('Conectado com sucesso!');
+    console.log('Berhasil terhubung!');
     await fs.readdir(path.resolve(__dirname, 'downloads'), (err, itens) => {
       itens.map(item => downloadedMusics.push(item));
     });
@@ -42,7 +42,7 @@ client.on('message_create', async message => {
     const { videos } = await yts(opts);
 
     if (videos.length == 0) {
-      return message.reply("Não encontrado, tente novamente");   
+      return message.reply("Zonk, Coba Lagi Anda Kurang Beruntung");   
     }
 
     const { videoId, title, duration } = videos[0];
@@ -51,14 +51,14 @@ client.on('message_create', async message => {
       media =  MessageMedia.fromFilePath(path.resolve(__dirname, 'downloads', `${videoId}.mp3`));
       return message.reply(media);   
     } else if (duration.seconds >= 900) {
-      return message.reply("Músicas com mais de *15 minutos* não são permitidas!");
+      return message.reply("Lagunya Gaboleh Lebih *15 minutos* Cape Gw!");
     }
     if (downloadStatus.baixando == true) {
-      return message.reply("Algúem em algum lugar do meu zipzopt já está baixando uma música no momento. Aguarde! (ou me pague um servidor pro bot)");
+      return message.reply("eseorang Gatau Siapa Lagi Download. Tunggu! (Maklum kan Bot Gratisan)");
     }
 
     downloadStatus.baixando = true;
-    message.reply("*INICIANDO DOWNLOAD:* _Esta ação pode demorar um pouco!_");
+    message.reply("*SABAR LAGI DOWNLOAD:* _Ngopi Dulu Aja Sono!_");
 
     const downloader = new DownloadYTFile({ 
       outputPath: downloadPath,
@@ -78,7 +78,7 @@ client.on('message_create', async message => {
 
     const download = await downloader.download(videoId, `${videoId}.mp3`);
     if (!download){
-      return message.reply("Erro, tente novamente.");
+      return message.reply("Erro, tente novamente/Salah Coba Meneh.");
     }
 
     downloadStatus.baixando = false;
